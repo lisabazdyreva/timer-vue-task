@@ -1,7 +1,8 @@
 <template>
   <div class="timer-container">
-    <button type="button">
+    <button class="add-button timer-container__add-button" type="button">
       <svg
+        class="add-button__icon"
         aria-hidden="true"
         fill="none"
         height="20"
@@ -30,12 +31,21 @@
 </script>
 
 <style scoped>
-  .timer-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 225px;
-    height: 120px;
-    background-color: var(--dark-gray-color);
+  .add-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 50px;
+  }
+
+  .add-button__icon {
+    display: block;
+  }
+
+  @media (min-width: 320px) {
+    .add-button {
+      padding-left: 103px;
+      padding-right: 103px;
+    }
   }
 </style>

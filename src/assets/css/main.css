@@ -1,20 +1,21 @@
 :root {
   --light-gray-color: #9e9e9e;
   --dark-gray-color: #696969;
+  --white-color: #ffffff;
 
   --main-background-color: #353638;
 }
 
 @font-face {
-  font-family: "Gotham Pro";
+  font-family: 'Gotham Pro';
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  src: url("public/fonts/gotham-pro.woff2") format("woff2");
+  src: url('public/fonts/gotham-pro.woff2') format('woff2');
 }
 
 .page {
-  font-family: "Gotham Pro", "Arial", sans-serif;
+  font-family: 'Gotham Pro', 'Arial', sans-serif;
   font-size: 15px;
   font-weight: 400;
   color: var(--dark-gray-color);
@@ -39,4 +40,13 @@
   border: 0;
   clip: rect(0 0 0 0);
   clip-path: inset(100%);
+}
+
+.timer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 225px;
+  max-height: 120px;
+  background-color: var(--dark-gray-color);
 }
