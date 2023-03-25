@@ -1,5 +1,5 @@
 <script setup>
-  import TimerItem from '@/components/timer-item.vue';
+  import TimerItem from '@/components/timer-item/timer-item.vue';
   import AddTimerButton from '@/components/add-timer-button.vue';
   import { useTimersStore } from '@/store/timers';
   import { storeToRefs } from 'pinia';
