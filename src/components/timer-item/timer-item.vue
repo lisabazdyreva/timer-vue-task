@@ -4,9 +4,9 @@
   import { formatTime } from '@/utils/utils';
   import { MILLISECONDS_IN_SECOND } from '@/utils/const';
 
-  import PlayTimerButton from '@/components/timer-item/play-timer-button.vue';
-  import PauseTimerButton from '@/components/timer-item/pause-timer-button.vue';
-  import StopTimerButton from '@/components/timer-item/stop-timer-button.vue';
+  import PlayTimerButton from '@/components/timer-item/buttons/play-timer-button.vue';
+  import PauseTimerButton from '@/components/timer-item/buttons/pause-timer-button.vue';
+  import StopTimerButton from '@/components/timer-item/buttons/stop-timer-button.vue';
 
   const initialTimeValue = 0;
   const initialTimeDisplay = '00:00';
@@ -50,6 +50,7 @@
 
     timeValue.value = initialTimeValue;
     timeDisplay.value = initialTimeDisplay;
+    isActive.value = false;
   };
 </script>
 
