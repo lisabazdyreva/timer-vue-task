@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { StoreName } from '@/utils/const';
 
-export const useTimersStore = defineStore('timers', () => {
-  const timerIds = ref([34]);
+export const useTimersStore = defineStore(StoreName.Timers, () => {
+  const timerIds = ref([]);
 
   const addTimer = (id) => {
     timerIds.value.push(id);
@@ -14,5 +15,3 @@ export const useTimersStore = defineStore('timers', () => {
 
   return { addTimer, removeTimer, timerIds };
 });
-
-//todo name to consts

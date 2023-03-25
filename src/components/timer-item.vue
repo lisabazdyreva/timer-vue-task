@@ -1,14 +1,17 @@
 <script setup>
-  import { ref } from 'vue';
+  import { ref, defineProps } from 'vue';
   import { useTimersStore } from '@/store/timers';
   import { formatTime } from '@/utils/utils';
   import { MILLISECONDS_IN_SECOND } from '@/utils/const';
 
-  const store = useTimersStore();
+  const initialTimeValue = 0;
+  const initialTimeDisplay = '00:00';
 
-  const timeValue = ref(0);
-  const timeDisplay = ref('00:00');
-  const id = ref(34); //todo unique ID
+  const store = useTimersStore();
+  const props = defineProps(['timerId']);
+
+  const timeValue = ref(initialTimeValue);
+  const timeDisplay = ref(initialTimeDisplay);
   const isActive = ref(false);
 
   let timer;
@@ -29,8 +32,20 @@
   };
 
   const remove = () => {
-    clearInterval(timer);
-    store.removeTimer(id.value);
+    if (timer) {
+      clearInterval(timer);
+    }
+
+    store.removeTimer(props.timerId);
+  };
+
+  const reset = () => {
+    if (timer) {
+      clearInterval(timer);
+    }
+
+    timeValue.value = initialTimeValue;
+    timeDisplay.value = initialTimeDisplay;
   };
 </script>
 
@@ -41,7 +56,7 @@
         {{ timeDisplay }}
       </p>
       <div class="timer-item__buttons">
-        <button class="timer-item__button play-button" type="button" @click="setActive" v-if="isActive === false">
+        <button class="timer-item__button play-button" type="button" @click="setActive" v-if="!isActive">
           <span class="visually-hidden">Start timer</span>
           <svg aria-hidden="true" class="timer-item__icon" fill="none" height="20" viewBox="0 0 17 20" width="17" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 20V0L17 10L0 20Z" fill="#9E9E9E" />
@@ -54,7 +69,7 @@
             <rect fill="#9E9E9E" height="20" width="3" y="0.000244141" />
           </svg>
         </button>
-        <button class="timer-item__button stop-button" type="button" @click="remove">
+        <button class="timer-item__button stop-button" type="button" @click="reset" @dblclick="remove">
           <span class="visually-hidden">Stop timer</span>
           <svg aria-hidden="true" class="timer-item__icon" fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
             <rect fill="#9E9E9E" height="20" width="20" />
@@ -81,6 +96,7 @@
     margin: 0;
     box-sizing: border-box;
     border-bottom: 1px solid var(--light-gray-color);
+    pointer-events: none;
   }
 
   .timer-item__buttons {
@@ -94,6 +110,10 @@
     cursor: pointer;
     padding-top: 20px;
     padding-bottom: 20px;
+  }
+
+  .timer-item__button:hover {
+    background-color: var(--hover-gray);
   }
 
   .pause-button {

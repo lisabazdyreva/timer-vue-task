@@ -11,14 +11,7 @@
 <template>
   <main class="main body__main">
     <div class="timer-list main__timer-list">
-      <timer-item v-for="timer in timerIds" :key="timer"></timer-item>
-      <!--      <timer-item></timer-item>-->
-      <!--      <timer-item></timer-item>-->
-      <!--      <timer-item></timer-item>-->
-      <!--      <timer-item></timer-item>-->
-      <!--      <timer-item></timer-item>-->
-      <!--      <timer-item></timer-item>-->
-      <!--      <timer-item></timer-item>-->
+      <TimerItem v-for="timer in timerIds" :key="timer" :timer-id="timer" />
       <add-timer-button></add-timer-button>
     </div>
   </main>
