@@ -2,7 +2,7 @@
 
 Simple timer application with possibilty to create several timers in one page. You can add timer, pause and stop. Also you can remove timer from the screen by clicking twice on stop button.
 
-##Stack
+## Stack
 
 - Vue 3
 - Pinia
