@@ -1,12 +1,16 @@
-<script setup>
-const check = () => {
-  return 1 + 2;
-};
+<script>
+import { defineComponent } from "vue";
+import AddTimerButton from "@/components/add-timer-button.vue";
+
+export default defineComponent({
+  components: { AddTimerButton },
+});
 </script>
 
 <template>
-  <header>Header</header>
-  <main>Main</main>
+  <main class="main body__main">
+    <add-timer-button></add-timer-button>
+  </main>
 </template>
 
 <style scoped></style>
