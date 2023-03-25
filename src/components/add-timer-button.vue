@@ -1,9 +1,24 @@
+<script setup>
+  import { useTimersStore } from '@/store/timers';
+  const store = useTimersStore();
+
+  const addNewTimer = () => {
+    const id = 34; // todo unique ID
+
+    store.addTimer(id);
+  };
+</script>
+
 <template>
   <div class="timer-container">
-    <button class="add-button timer-container__add-button" type="button">
+    <button
+      class="add-button timer-container__add-button"
+      type="button"
+      @click="addNewTimer"
+    >
       <svg
-        class="add-button__icon"
         aria-hidden="true"
+        class="add-button__icon"
         fill="none"
         height="20"
         viewBox="0 0 20 20"
@@ -24,13 +39,7 @@
   </div>
 </template>
 
-<script>
-  export default {
-    name: 'AddTimerButton',
-  };
-</script>
-
-<style scoped>
+<style>
   .add-button {
     background-color: transparent;
     border: none;

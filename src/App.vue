@@ -1,24 +1,24 @@
-<script>
-  import { defineComponent } from 'vue';
-  import AddTimerButton from '@/components/add-timer-button.vue';
+<script setup>
   import TimerItem from '@/components/timer-item.vue';
+  import AddTimerButton from '@/components/add-timer-button.vue';
+  import { useTimersStore } from '@/store/timers';
+  import { storeToRefs } from 'pinia';
 
-  export default defineComponent({
-    components: { TimerItem, AddTimerButton },
-  });
+  const store = useTimersStore();
+  const { timerIds } = storeToRefs(store);
 </script>
 
 <template>
   <main class="main body__main">
     <div class="timer-list main__timer-list">
-      <timer-item></timer-item>
-      <timer-item></timer-item>
-      <timer-item></timer-item>
-      <timer-item></timer-item>
-      <timer-item></timer-item>
-      <timer-item></timer-item>
-      <timer-item></timer-item>
-      <timer-item></timer-item>
+      <timer-item v-for="timer in timerIds" :key="timer"></timer-item>
+      <!--      <timer-item></timer-item>-->
+      <!--      <timer-item></timer-item>-->
+      <!--      <timer-item></timer-item>-->
+      <!--      <timer-item></timer-item>-->
+      <!--      <timer-item></timer-item>-->
+      <!--      <timer-item></timer-item>-->
+      <!--      <timer-item></timer-item>-->
       <add-timer-button></add-timer-button>
     </div>
   </main>
