@@ -1,21 +1,35 @@
 <script setup>
   import { ref } from 'vue';
   import { useTimersStore } from '@/store/timers';
+  import { formatTime } from '@/utils/utils';
+  import { MILLISECONDS_IN_SECOND } from '@/utils/const';
 
   const store = useTimersStore();
-  const id = ref(34);
 
+  const timeValue = ref(0);
+  const timeDisplay = ref('00:00');
+  const id = ref(34); //todo unique ID
   const isActive = ref(false);
+
+  let timer;
+
+  const setTimeValue = () => {
+    timeValue.value += 1;
+    timeDisplay.value = formatTime(timeValue.value);
+  };
 
   const setActive = () => {
     isActive.value = true;
+    timer = setInterval(setTimeValue, MILLISECONDS_IN_SECOND);
   };
 
   const setPause = () => {
+    clearInterval(timer);
     isActive.value = false;
   };
 
   const remove = () => {
+    clearInterval(timer);
     store.removeTimer(id.value);
   };
 </script>
@@ -23,62 +37,26 @@
 <template>
   <div class="timer-container">
     <div class="timer-item">
-      <p class="timer-item__time" :class="{ active: isActive }">01:20</p>
+      <p class="timer-item__time" :class="{ active: isActive }">
+        {{ timeDisplay }}
+      </p>
       <div class="timer-item__buttons">
-        <button
-          class="timer-item__button play-button"
-          type="button"
-          @click="setActive"
-          v-if="isActive === false"
-        >
+        <button class="timer-item__button play-button" type="button" @click="setActive" v-if="isActive === false">
           <span class="visually-hidden">Start timer</span>
-          <svg
-            aria-hidden="true"
-            class="timer-item__icon"
-            fill="none"
-            height="20"
-            viewBox="0 0 17 20"
-            width="17"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg aria-hidden="true" class="timer-item__icon" fill="none" height="20" viewBox="0 0 17 20" width="17" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 20V0L17 10L0 20Z" fill="#9E9E9E" />
           </svg>
         </button>
-        <button
-          class="timer-item__button pause-button"
-          type="button"
-          v-if="isActive"
-          @click="setPause"
-        >
+        <button class="timer-item__button pause-button" type="button" v-if="isActive" @click="setPause">
           <span class="visually-hidden">Pause timer</span>
-          <svg
-            aria-hidden="true"
-            class="timer-item__icon"
-            fill="none"
-            height="20"
-            viewBox="0 0 10 20"
-            width="10"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg aria-hidden="true" class="timer-item__icon" fill="none" height="20" viewBox="0 0 10 20" width="10" xmlns="http://www.w3.org/2000/svg">
             <rect fill="#9E9E9E" height="20" width="3" x="7" y="0.000244141" />
             <rect fill="#9E9E9E" height="20" width="3" y="0.000244141" />
           </svg>
         </button>
-        <button
-          class="timer-item__button stop-button"
-          type="button"
-          @click="remove"
-        >
+        <button class="timer-item__button stop-button" type="button" @click="remove">
           <span class="visually-hidden">Stop timer</span>
-          <svg
-            aria-hidden="true"
-            class="timer-item__icon"
-            fill="none"
-            height="20"
-            viewBox="0 0 20 20"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg aria-hidden="true" class="timer-item__icon" fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
             <rect fill="#9E9E9E" height="20" width="20" />
           </svg>
         </button>

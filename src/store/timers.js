@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useTimersStore = defineStore('timers', () => {
-  const timerIds = ref([1, 34]);
+  const timerIds = ref([34]);
 
   const addTimer = (id) => {
     timerIds.value.push(id);
