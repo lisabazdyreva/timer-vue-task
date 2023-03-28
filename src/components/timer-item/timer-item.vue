@@ -18,15 +18,24 @@
   const timeDisplay = ref(initialTimeDisplay);
   const isActive = ref(false);
 
+  const startTime = ref(null);
+  const lastTimeValue = ref(null);
+  const timeDifference = ref(null);
+  const timeToDisplay = ref(null);
+
   let timer;
 
   const setTimeValue = () => {
-    timeValue.value += 1;
-    timeDisplay.value = formatTime(timeValue.value);
+    timeDifference.value = Date.now() - startTime.value;
+    timeToDisplay.value = formatTime(Math.floor(timeDifference.value / MILLISECONDS_IN_SECOND));
+
+    timeDisplay.value = timeToDisplay.value;
   };
 
   const setActive = () => {
     isActive.value = true;
+    startTime.value = Date.now();
+
     timer = setInterval(setTimeValue, MILLISECONDS_IN_SECOND);
   };
 
