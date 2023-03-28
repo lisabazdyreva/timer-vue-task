@@ -8,28 +8,31 @@
   import PauseTimerButton from '@/components/timer-item/buttons/pause-timer-button.vue';
   import StopTimerButton from '@/components/timer-item/buttons/stop-timer-button.vue';
 
-  const initialTimeValue = 0;
   const initialTimeDisplay = '00:00';
 
   const store = useTimersStore();
   const props = defineProps(['timerId']);
 
-  const timeValue = ref(initialTimeValue);
-  const timeDisplay = ref(initialTimeDisplay);
   const isActive = ref(false);
 
   const startTime = ref(null);
-  const lastTimeValue = ref(null);
-  const timeDifference = ref(null);
-  const timeToDisplay = ref(null);
+  const passedTime = ref(null);
+  const differenceInTime = ref(null);
+
+  const timeDisplay = ref(initialTimeDisplay);
 
   let timer;
 
   const setTimeValue = () => {
-    timeDifference.value = Date.now() - startTime.value;
-    timeToDisplay.value = formatTime(Math.floor(timeDifference.value / MILLISECONDS_IN_SECOND));
+    const differenceFromStart = Date.now() - startTime.value;
 
-    timeDisplay.value = timeToDisplay.value;
+    if (passedTime.value) {
+      differenceInTime.value = differenceFromStart + passedTime.value;
+    } else {
+      differenceInTime.value = differenceFromStart;
+    }
+
+    timeDisplay.value = formatTime(Math.floor(differenceInTime.value / MILLISECONDS_IN_SECOND));
   };
 
   const setActive = () => {
@@ -41,6 +44,7 @@
 
   const setPause = () => {
     clearInterval(timer);
+    passedTime.value = differenceInTime.value;
     isActive.value = false;
   };
 
@@ -57,8 +61,12 @@
       clearInterval(timer);
     }
 
-    timeValue.value = initialTimeValue;
     timeDisplay.value = initialTimeDisplay;
+
+    startTime.value = null;
+    passedTime.value = null;
+    differenceInTime.value = null;
+
     isActive.value = false;
   };
 </script>
